@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Harita
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div style="height:100%;"
+       leaflet
+       [leafletOptions]="options"
+       [leafletLayersControl]="layersControl"
+       [leafletLayers]="layers">
+  </div>
+</ion-content>
