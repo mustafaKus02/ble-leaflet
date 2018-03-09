@@ -9,6 +9,9 @@ import { HomePage } from '../pages/home/home';
 
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
+
+import {HttpClientModule} from "@angular/common/http";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -17,7 +20,8 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {MapOptions, latLng, tileLayer, circle, polygon, marker, geoJSON} from "leaflet";
-import {Point} from "geojson";
+import { MapOptions, latLng, tileLayer, circle, polygon, marker, geoJSON, point} from "leaflet";
+import {HttpClient} from "@angular/common/http";
+import {FeatureCollection, GeoJsonObject, GeometryObject} from "geojson";
+
+
 
 
 @Component({
@@ -14,22 +17,27 @@ export class HomePage {
   private layersControl:any;
   private  layers:any;
 
-  private point:Point={type:'Point'};
+  private geoJSON:any;
 
 
-  constructor(public navCtrl: NavController ) {
+  constructor(public navCtrl: NavController, http:HttpClient ) {
 
 
-   this.point.coordinates=[39.9333635, 32.85974190000002]
+    http.get("http://indoor.keydata.com.tr/indoor/data/alan.json").subscribe(data=> {this.geoJSON=data;  debugger;})
 
-
+      debugger;
     this.options = {
       layers: [
        // tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' }),
-          geoJSON(this.point, {color:'red'})
+          geoJSON([{
+              type: 'Polygon',
+              coordinates:
+                [[[ 39.9333635, 32.85974190000002 ], [ 39.4333635, 32.65974190000002 ], [ 39.7333635, 32.45974190000002 ], [ 39.9333635, 32.85974190000002 ]]]
+            }, {type:'Point', coordinates:[39.9333635, 32.8597419000000]}] as any,
+            { style: () => ({ color: '#ff7800' })})
       ],
-      zoom:13,
-      center: latLng(39.9333635, 32.85974190000002)
+      zoom:5,
+      center: latLng(39.9333635, 32.8597419000000)
     };
 
     this.layersControl = {
